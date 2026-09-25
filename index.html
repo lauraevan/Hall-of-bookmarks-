@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Highlight Math</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0a0a;color:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    main{width:min(620px,calc(100% - 32px));padding:28px}
+    .eyebrow{color:#8c8c8c;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+    h1{margin:8px 0 10px;font-size:clamp(34px,8vw,64px);line-height:.95;letter-spacing:-.055em}
+    p{margin:0 0 22px;color:#a8a8a8;font-size:16px;line-height:1.55;max-width:52ch}
+    .drag{
+      display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 20px;
+      border:1px solid #333;border-radius:14px;background:#f4f4f4;color:#090909;text-decoration:none;
+      font-weight:750;font-size:16px;cursor:grab;user-select:none;-webkit-user-drag:element
+    }
+    .drag:active{cursor:grabbing;transform:scale(.99)}
+    .steps{margin-top:22px;padding-top:18px;border-top:1px solid #222;color:#8f8f8f;font-size:13px;line-height:1.55}
+    .steps strong{color:#e8e8e8}
+    .demo{margin-top:20px;padding:14px 16px;border:1px solid #222;border-radius:14px;background:#101010;color:#d7d7d7;font-size:14px}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff}
+    @media(max-width:480px){main{padding:20px 4px}.drag{width:100%}}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Hall of Bookmarks</div>
+    <h1>Highlight Math</h1>
+    <p>Drag the button into your bookmarks bar. Open any page, click it once, then highlight a math question and the answer appears beside your selection.</p>
+    <a id="bookmarklet" class="drag" href="#">Highlight Math</a>
+    <div class="demo">Try highlighting: <code>what is (15 + 5) * 3?</code></div>
+    <div class="steps"><strong>One click enables it for the current page.</strong> Clicking the bookmark again turns it off. It understands +, −, ×, ÷, powers, square roots, and “percent of”.</div>
+  </main>
+  <script>
+    const code="javascript:(()=>{if(window.__hiqMath){window.__hiqMath.destroy();delete window.__hiqMath;return}const ID='__hiq_math_host__';let host=document.getElementById(ID);if(host)host.remove();host=document.createElement('div');host.id=ID;host.style.cssText='all:initial;position:fixed;z-index:2147483647;left:0;top:0;pointer-events:none';document.documentElement.appendChild(host);const root=host.attachShadow({mode:'open'});root.innerHTML='<style>:host{all:initial}.q{position:fixed;max-width:min(340px,calc(100vw - 24px));box-sizing:border-box;padding:10px 13px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(18,18,18,.96);color:#fff;font:500 14px/1.25 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;box-shadow:0 10px 34px rgba(0,0,0,.38);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transform:translateY(4px) scale(.98);transition:opacity .12s ease,transform .12s ease;pointer-events:none}.q.on{opacity:1;transform:none}.src{max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa;font-size:11px;margin-bottom:3px}.ans{font-size:22px;font-weight:750;letter-spacing:-.02em}.err{font-size:13px;color:#ddd}</style><div class=\"q\" role=\"status\" aria-live=\"polite\"><div class=\"src\"></div><div class=\"ans\"></div></div>';const box=root.querySelector('.q'),src=root.querySelector('.src'),ans=root.querySelector('.ans');let timer=0,last='';function selected(){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&/^(text|search|url|tel|email|number)$/i.test(a.type||'text')))&&typeof a.selectionStart==='number'&&a.selectionStart!==a.selectionEnd){return{text:a.value.slice(a.selectionStart,a.selectionEnd),rect:a.getBoundingClientRect()}}const s=window.getSelection();if(!s||s.rangeCount===0||s.isCollapsed)return null;let r;try{r=s.getRangeAt(0).getBoundingClientRect()}catch(_){return null}return{text:s.toString(),rect:r}}function parse(raw){let e=String(raw).trim().toLowerCase();if(!e)return null;e=e.replace(/[“”‘’]/g,'').replace(/^(?:hey\\s+)?(?:what(?:'s|\\s+is)|calculate|solve|compute|evaluate)\\s+/i,'').replace(/[?=]+$/g,'').trim();e=e.replace(/\\bsquare\\s+root\\s+of\\s+(-?\\d+(?:\\.\\d+)?)\\b/g,'Math.sqrt($1)').replace(/\\bsqrt\\s*\\(\\s*(-?\\d+(?:\\.\\d+)?)\\s*\\)/g,'Math.sqrt($1)').replace(/\\b(-?\\d+(?:\\.\\d+)?)\\s*percent\\s+of\\s+(-?\\d+(?:\\.\\d+)?)\\b/g,'(($1/100)*$2)').replace(/\\b(-?\\d+(?:\\.\\d+)?)\\s*%\\s+of\\s+(-?\\d+(?:\\.\\d+)?)\\b/g,'(($1/100)*$2)').replace(/\\bdivided\\s+by\\b/g,'/').replace(/\\bover\\b/g,'/').replace(/\\bmultiplied\\s+by\\b/g,'*').replace(/\\btimes\\b/g,'*').replace(/\\bplus\\b/g,'+').replace(/\\bminus\\b/g,'-').replace(/[×x]/g,'*').replace(/÷/g,'/').replace(/\\^/g,'**').trim();const safe=e.replace(/Math\\.sqrt/g,'SQRT');if(!/^[0-9+\\-*/().%\\sSQRT]+$/.test(safe))return null;if(!/[0-9]/.test(e))return null;try{const v=Function('\"use strict\";return ('+e+')')();if(typeof v!=='number'||!Number.isFinite(v))return null;return Math.abs(v)<1e-12?0:Number.isInteger(v)?v:Number(v.toFixed(10))}catch(_){return null}}function place(rect){box.style.left='12px';box.style.top='12px';const b=box.getBoundingClientRect();let x=rect.left+rect.width/2-b.width/2;let y=rect.bottom+10;x=Math.max(8,Math.min(window.innerWidth-b.width-8,x));if(y+b.height>window.innerHeight-8)y=Math.max(8,rect.top-b.height-10);box.style.left=x+'px';box.style.top=y+'px'}function hide(){box.classList.remove('on');last=''}function run(){const s=selected();if(!s){hide();return}const text=s.text.replace(/\\s+/g,' ').trim();if(!text||text.length>180){hide();return}const value=parse(text);if(value===null){hide();return}const key=text+'::'+value;if(key===last&&box.classList.contains('on'))return;last=key;src.textContent=text;ans.textContent=String(value);box.classList.add('on');requestAnimationFrame(()=>place(s.rect))}function queue(){clearTimeout(timer);timer=setTimeout(run,140)}['mouseup','touchend','keyup'].forEach(e=>document.addEventListener(e,queue,true));document.addEventListener('selectionchange',queue,true);window.addEventListener('scroll',queue,true);window.addEventListener('resize',queue,true);const api={destroy(){clearTimeout(timer);['mouseup','touchend','keyup'].forEach(e=>document.removeEventListener(e,queue,true));document.removeEventListener('selectionchange',queue,true);window.removeEventListener('scroll',queue,true);window.removeEventListener('resize',queue,true);host.remove()}};window.__hiqMath=api;run()})()";
+    const link=document.getElementById('bookmarklet');
+    link.href=code;
+    link.addEventListener('click',e=>{
+      if(location.protocol==='http:'||location.protocol==='https:'){
+        e.preventDefault();
+        const old=link.textContent;
+        link.textContent='Drag me to your bookmarks bar';
+        setTimeout(()=>link.textContent=old,1800);
+      }
+    });
+  </script>
+</body>
+</html>
