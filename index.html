@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>MONO GUI V0.25 · Hall of Bookmarks</title>
+<title>MONO GUI V0.26 · Hall of Bookmarks</title>
 <style>
 *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#090909;color:#f6f6f6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(700px,calc(100% - 32px));padding:28px}.eyebrow{color:#858585;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}h1{margin:8px 0 10px;font-size:clamp(36px,8vw,66px);line-height:.95;letter-spacing:-.055em}p{margin:0 0 22px;color:#aaa;font-size:16px;line-height:1.55;max-width:60ch}.drag{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 22px;border:1px solid #333;border-radius:14px;background:#f5f5f5;color:#090909;text-decoration:none;font-weight:780;font-size:16px;cursor:grab;user-select:none;-webkit-user-drag:element}.drag:active{cursor:grabbing;transform:scale(.99)}.compatrow{margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#777;font-size:12px}.compatdrag{color:#ddd;text-decoration:none;border:1px solid #262626;border-radius:9px;padding:7px 9px;background:#111;cursor:grab}.compatdrag:hover{border-color:#444}.compatdrag.loading{color:#666;cursor:default}.note{margin-top:18px;padding:14px 16px;border:1px solid #222;border-radius:14px;color:#999;font-size:14px;line-height:1.55}.note strong{color:#eee}.examples{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.ex{padding:11px 12px;border:1px solid #202020;border-radius:11px;background:#0e0e0e;color:#aaa;font-size:13px}.ex strong{color:#fff}@media(max-width:540px){main{padding:20px 4px}.drag{width:100%}.examples{grid-template-columns:1fr}}
 </style>
@@ -12,8 +12,8 @@
 <body>
 <main>
 <div class="eyebrow">Hall of Bookmarks</div>
-<h1>MONO GUI V0.25</h1>
-<p>Drag MONO GUI V0.25 into your bookmarks bar, highlight a question or passage, and run it. The tiny bookmark loads the latest solver automatically. Bold text, links, and nested formatting are handled as normal text.</p>
+<h1>MONO GUI V0.26</h1>
+<p>Drag MONO GUI V0.26 into your bookmarks bar, highlight a question or passage, and run it. The tiny bookmark loads the latest solver automatically. Bold text, links, and nested formatting are handled as normal text.</p>
 <a class="drag" href="javascript:(()=&gt;{const n=Date.now(),u=['https://lauraevan.github.io/Hall-of-bookmarks-/highlight-math.js?t='+n,'https://cdn.jsdelivr.net/gh/lauraevan/Hall-of-bookmarks-@main/highlight-math.js?t='+n];let i=0;const go=()=&gt;{if(i&gt;=u.length){alert('This page blocked the hosted MONO GUI script. Use the Compatibility bookmark from the MONO GUI install page.');return}document.getElementById('__mono_gui_loader__')?.remove();const s=document.createElement('script');s.id='__mono_gui_loader__';s.src=u[i++];s.onload=()=&gt;s.remove();s.onerror=()=&gt;{s.remove();go()};(document.head||document.documentElement).appendChild(s)};go()})()">MONO GUI</a>
 <div class="examples">
 <div class="ex"><strong>1/2 + 1/4</strong> → 0.75</div>
@@ -25,10 +25,10 @@
 <div class="ex"><strong>Sarah has 14 apples, Jacob has 27. Total?</strong> → 41 apples</div>
 <div class="ex"><strong>$40 with 25% off</strong> → 30</div>
 </div>
-<div class="note"><strong>MONO GUI V0.25 BETA:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Smart Mode remains an opt-in beta. V0.25 changes Deep Scan Mode so it never ends with an unresolved result if it found any usable candidate. It keeps escalating providers for up to 20 minutes, but if disagreement remains it ranks the surviving candidates and returns the strongest-supported answer instead of giving up.</div>
+<div class="note"><strong>MONO GUI V0.26 BETA:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Smart Mode remains an opt-in beta. V0.26 rebuilds Deep Scan as a dedicated research path instead of normal verification with extra loops. It now has selectable 2, 5, 10, or 20 minute budgets, defaults to 20 minutes, performs at least about 45 seconds of real research for outside-knowledge questions, shows round/source progress, expands queries and providers when conflicts persist, and returns the strongest candidate found.</div>
 </main>
 <script>
-(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=25',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
+(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=26',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
 </script>
 </body>
 </html>
