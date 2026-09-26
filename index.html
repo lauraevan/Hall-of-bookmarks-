@@ -25,10 +25,10 @@
 <div class="ex"><strong>Sarah has 14 apples, Jacob has 27. Total?</strong> → 41 apples</div>
 <div class="ex"><strong>$40 with 25% off</strong> → 30</div>
 </div>
-<div class="note"><strong>New in v17:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Hosted-engine install: the normal bookmark is now tiny and auto-updates with the site. Selection parsing also reads across bold, links, spans, and nearby sibling blocks so formatted Gemini questions behave like plain text.</div>
+<div class="note"><strong>New in v18:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Passage mode now resolves people by the action described in the question, expands surnames back to full names, and prevents external knowledge from replacing an answer that belongs to an explicitly selected passage.</div>
 </main>
 <script>
-(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=17',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
+(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=18',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
 </script>
 </body>
 </html>
