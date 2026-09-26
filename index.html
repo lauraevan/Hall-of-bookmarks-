@@ -25,10 +25,10 @@
 <div class="ex"><strong>Sarah has 14 apples, Jacob has 27. Total?</strong> → 41 apples</div>
 <div class="ex"><strong>$40 with 25% off</strong> → 30</div>
 </div>
-<div class="note"><strong>New in v19:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Passage mode now anchors location questions to the exact entity named in the question, so separate locations in the same sentence do not get mixed up. Explicit passage questions remain closed-book.</div>
+<div class="note"><strong>New in v20:</strong> slash fractions, mixed numbers, common Unicode fractions, fraction-of-number expressions, multi-question selections, and a full-page math scanner. The scanner stays local to your browser and returns up to 100 unique supported problems with parsed expressions and calculation steps. Passage mode now uses a broader relation parser for subjects, actions, objects, locations, reasons, and methods instead of one-off question fixes. Knowledge mode remains Wikipedia-first and can cross-check with Wikidata, World Bank, REST Countries, Google Books, Open Library, Crossref, OpenAlex, Europe PMC, and Wiktionary.</div>
 </main>
 <script>
-(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=19',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
+(async()=>{const a=document.getElementById('compatBookmark');if(!a)return;try{const r=await fetch('./highlight-math.js?v=20',{cache:'no-store'});if(!r.ok)throw 0;const code=await r.text();a.href='javascript:'+code;a.textContent='Compatibility bookmark';a.classList.remove('loading')}catch(_){a.textContent='Compatibility bookmark unavailable'}})();
 </script>
 </body>
 </html>
